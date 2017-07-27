@@ -4,4 +4,4 @@ endif
 
 let b:did_ftplugin = 1
 
-set commentstring=#\ %s
+setlocal commentstring=#\ %s
