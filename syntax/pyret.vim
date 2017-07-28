@@ -58,4 +58,3 @@ hi def link op Label
 hi def link string Constant
 hi def link number Constant
 hi def link literal Constant
-

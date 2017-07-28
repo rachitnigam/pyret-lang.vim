@@ -1,1 +1,1 @@
-au BufNewFile, BufRead *.arr set filetype=pyret
+au BufNewFile,BufRead *.arr set filetype=pyret
