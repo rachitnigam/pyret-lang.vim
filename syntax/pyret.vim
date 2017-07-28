@@ -47,8 +47,12 @@ syn match op ' <= '
 syn match op ' <> '
 
 " Comments
-syn match comment '\#.*$'
-syntax region comment start=/#|/ skip=/\./ end=/|#/
+syn match comment '\#.*$' contains=pyretTodo
+syntax region comment start=/#|/ skip=/\./ end=/|#/ contains=pyretTodo
+
+" Todo
+syn match pyretTodo "\vTODO|FIXME|NOTE" contained
+hi link pyretTodo Todo
 
 " Strings
 syntax region string start=/\v"/ skip=/\v\\./ end=/\v"/
@@ -56,15 +60,15 @@ syntax region string start=/\v'/ skip=/\v\\./ end=/\v'/
 syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 
 " Numbers
-syn match number "[0-9]+"
+syn match pyretNumber "\v[0-9]+"
 
 " Template
 syntax match pyretTemplate '\v\.\.\.'
 
-hi def link comment Comment
-hi def link basic Function
-hi def link delimeter PreProc
-hi def link op Label
-hi def link number Constant
-hi def link literal Constant
-hi def link pyretTemplate ERROR
+hi link comment Comment
+hi link basic Function
+hi link delimeter PreProc
+hi link op Label
+hi link pyretNumber Constant
+hi link literal Constant
+hi link pyretTemplate ERROR
