@@ -25,6 +25,7 @@ syn match delimeter '{'
 syn match delimeter '}'
 syn match delimeter ':'
 syn match delimeter '::'
+syn match delimiter '%'
 
 syn keyword basic var fun end with: sharing: data include import
 syn keyword basic provide as try: except when cases
@@ -60,7 +61,8 @@ syntax region string start=/\v'/ skip=/\v\\./ end=/\v'/
 syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 
 " Numbers
-syn match pyretNumber "\v[0-9]+"
+syn match pyretExactNumber "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
+hi link pyretExactNumber Constant
 
 " Template
 syntax match pyretTemplate '\v\.\.\.'
@@ -69,6 +71,5 @@ hi link comment Comment
 hi link basic Function
 hi link delimeter PreProc
 hi link op Label
-hi link pyretNumber Constant
 hi link literal Constant
 hi link pyretTemplate ERROR
