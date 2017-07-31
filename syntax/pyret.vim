@@ -27,32 +27,38 @@ syn match delimeter ':'
 syn match delimeter '::'
 syn match delimiter '%'
 
-syn keyword basic var fun end with: sharing: data include import
-syn keyword basic provide as try: except when cases
-syn keyword basic for from check: where: doc: and or not else: if else
-syn keyword basic is is== is=~ is<=> is-not is-not== is-not=~ is-not<=>
-syn keyword basic deriving ref graph: m-graph: block: satisfies
-syn keyword basic violates shadow lam type type-let provide-types
-syn keyword basic let rec letrec ask: table: extend using row: select
-syn keyword basic extract order sieve by raises newtype method
+hi link delimeter PreProc
+
+" Keywords in pyret
+syn keyword pyretKeyword var fun end with: sharing: data include import
+syn keyword pyretKeyword provide as try: except when cases
+syn keyword pyretKeyword for from check: where: doc: and or not else: if else
+syn keyword pyretKeyword is is== is=~ is<=> is-not is-not== is-not=~ is-not<=>
+syn keyword pyretKeyword deriving ref graph: m-graph: block: satisfies
+syn keyword pyretKeyword violates shadow lam type type-let provide-types
+syn keyword pyretKeyword let rec letrec ask: table: extend using row: select
+syn keyword pyretKeyword extract order sieve by raises newtype method
+hi link pyretKeyword Function
 
 " Operators
-syn match op ' + '
-syn match op ' - '
-syn match op ' / '
-syn match op ' * '
-syn match op ' > '
-syn match op ' < '
-syn match op ' >= '
-syn match op ' <= '
-syn match op ' <> '
+syn match pyretOperator ' + '
+syn match pyretOperator ' - '
+syn match pyretOperator ' / '
+syn match pyretOperator ' * '
+syn match pyretOperator ' > '
+syn match pyretOperator ' < '
+syn match pyretOperator ' >= '
+syn match pyretOperator ' <= '
+syn match pyretOperator ' <> '
+hi link pyretOperator Label
 
 " Comments
-syn match comment '\#.*$' contains=pyretTodo
-syntax region comment start=/#|/ skip=/\./ end=/|#/ contains=pyretTodo
+syn match pyretComment '\#.*$' contains=pyretTodo
+syntax region pyretComment start=/#|/ skip=/\./ end=/|#/ contains=pyretTodo
+hi link pyretComment Comment
 
 " Todo
-syn match pyretTodo "\vTODO|FIXME|NOTE" contained
+syn match pyretTodo /\vTODO|FIXME|NOTE/ contained
 hi link pyretTodo Todo
 
 " Strings
@@ -61,7 +67,7 @@ syntax region string start=/\v'/ skip=/\v\\./ end=/\v'/
 syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 
 " Numbers
-syn match pyretExactNumber "\v(\s|^)(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
+syn match pyretExactNumber "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
 hi link pyretExactNumber Constant
 
 " Booleans
@@ -71,10 +77,7 @@ hi link pyretBoolean Boolean
 
 " Template
 syntax match pyretTemplate '\v\.\.\.'
-
-hi link comment Comment
-hi link basic Function
-hi link delimeter PreProc
-hi link op Label
-hi link literal Constant
 hi link pyretTemplate ERROR
+
+" Variable names in pyret. Need to be higher priority than numbers
+syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*'
