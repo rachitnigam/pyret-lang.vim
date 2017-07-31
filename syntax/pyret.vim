@@ -61,7 +61,7 @@ syntax region string start=/\v'/ skip=/\v\\./ end=/\v'/
 syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 
 " Numbers
-syn match pyretExactNumber "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
+syn match pyretExactNumber "\v(\s|^)(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
 hi link pyretExactNumber Constant
 
 " Template
