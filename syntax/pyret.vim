@@ -64,6 +64,11 @@ syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 syn match pyretExactNumber "\v(\s|^)(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
 hi link pyretExactNumber Constant
 
+" Booleans
+syn keyword pyretBoolean true
+syn keyword pyretBoolean false
+hi link pyretBoolean Boolean
+
 " Template
 syntax match pyretTemplate '\v\.\.\.'
 
