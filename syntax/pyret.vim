@@ -62,8 +62,8 @@ syn match pyretTodo /\vTODO|FIXME|NOTE/ contained
 hi link pyretTodo Todo
 
 " Strings
-syntax region string start=/\v"/ skip=/\v\\./ end=/\v"/
-syntax region string start=/\v'/ skip=/\v\\./ end=/\v'/
+syntax region string start=/\v"/ skip=/\v\\./ end=/\v("|$)/
+syntax region string start=/\v'/ skip=/\v\\./ end=/\v('|$)/
 syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
 
 " Numbers
