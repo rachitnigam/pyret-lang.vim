@@ -78,4 +78,29 @@ syntax match pyretTemplate '\v\.\.\.'
 hi link pyretTemplate ERROR
 
 " Variable names in pyret. Need to be higher priority than numbers
-syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*'
+syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' nextgroup=pyretColonColon skipwhite
+syn match pyretColonColon '::' nextgroup=@pyretAnn skipwhite contained
+hi link pyretColonColon PreProc
+
+" Type Annotations
+syn cluster pyretAnn
+ \ contains=pyretSimpleAnn,pyretComplexAnn,pyretDashAnn,pyretRecordAnn
+
+syn region pyretComplexAnn matchgroup=Keyword start='\v\<' end='\v\>'
+ \ contained contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
+
+syn match pyretSimpleAnn '\v\s+\w%(\w|\.\w)+' contained
+ \ nextgroup=pyretComplexAnn,pyretAnnArrow skipwhite
+
+syn match pyretDashAnn '\v\s+%(\w+-\w+)+%(\.%(\w+-\w+|\w+))*'
+ \ nextgroup=pyretComplexAnn,pyretAnnArrow contained skipwhite
+
+syn region pyretRecordAnn matchgroup=Keyword start='\v\{' end='\v\}' contained
+ \ contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
+
+syn match pyretAnnArrow '\v-\>' contained nextgroup=@pyretAnn skipwhite
+hi link pyretAnnArrow Keyword
+hi link pyretSimpleAnn Type
+hi link pyretDashAnn Type
+hi link pyretComplexAnn Type
+hi link pyretRecordAnn Type
