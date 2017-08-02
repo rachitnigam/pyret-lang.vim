@@ -12,19 +12,11 @@ set iskeyword+=:
 syn match delimeter '!'
 syn match delimeter '\.'
 syn match delimeter '|'
-syn match delimeter '('
-syn match delimeter ')'
-syn match delimeter '->'
 syn match delimeter '='
 syn match delimeter '=>'
 syn match delimeter ':='
 
-syn match delimeter '\['
-syn match delimeter '\]'
-syn match delimeter '{'
-syn match delimeter '}'
 syn match delimeter ':'
-syn match delimeter '::'
 syn match delimiter '%'
 
 hi link delimeter PreProc
@@ -39,6 +31,12 @@ syn keyword pyretKeyword violates shadow lam type type-let provide-types
 syn keyword pyretKeyword let rec letrec ask: table: extend using row: select
 syn keyword pyretKeyword extract order sieve by raises newtype method
 hi link pyretKeyword Function
+
+" Built-in functions
+syn keyword pyretBuiltin torepr to-repr tostring to-string raise
+syn keyword pyretBuiltin is-boolean is-number is-string is-raw-array is-nothing
+syn keyword pyretBuiltin is-function is-object
+hi link pyretBuiltin Constant
 
 " Operators
 syn match pyretOperator ' + '
