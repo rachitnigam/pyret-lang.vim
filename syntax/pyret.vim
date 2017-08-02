@@ -11,7 +11,6 @@ set iskeyword+=:
 
 syn match delimeter '!'
 syn match delimeter '\.'
-syn match delimeter '|'
 syn match delimeter '='
 syn match delimeter '=>'
 syn match delimeter ':='
@@ -22,14 +21,14 @@ syn match delimiter '%'
 hi link delimeter PreProc
 
 " Keywords in pyret
-syn keyword pyretKeyword var fun end with: sharing: data include import
+syn keyword pyretKeyword var end with: sharing: include import
 syn keyword pyretKeyword provide as try: except when cases
 syn keyword pyretKeyword for from check: where: doc: and or not else: if else
 syn keyword pyretKeyword is is== is=~ is<=> is-not is-not== is-not=~ is-not<=>
 syn keyword pyretKeyword deriving ref graph: m-graph: block: satisfies
-syn keyword pyretKeyword violates shadow lam type type-let provide-types
+syn keyword pyretKeyword violates shadow lam type-let provide-types
 syn keyword pyretKeyword let rec letrec ask: table: extend using row: select
-syn keyword pyretKeyword extract order sieve by raises newtype method
+syn keyword pyretKeyword extract order sieve by raises newtype
 hi link pyretKeyword Function
 
 " Built-in functions
@@ -78,13 +77,14 @@ syntax match pyretTemplate '\v\.\.\.'
 hi link pyretTemplate ERROR
 
 " Variable names in pyret. Need to be higher priority than numbers
-syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' nextgroup=pyretColonColon skipwhite
+syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*'
+ \ nextgroup=pyretColonColon skipwhite
 syn match pyretColonColon '::' nextgroup=@pyretAnn skipwhite contained
 hi link pyretColonColon PreProc
 
 " Type Annotations
 syn cluster pyretAnn
- \ contains=pyretSimpleAnn,pyretComplexAnn,pyretDashAnn,pyretRecordAnn
+ \ contains=pyretSimpleAnn,pyretComplexAnn,pyretDashAnn,pyretRecordAnn,pyretParenAnn
 
 syn region pyretComplexAnn matchgroup=Keyword start='\v\<' end='\v\>'
  \ contained contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
@@ -98,9 +98,35 @@ syn match pyretDashAnn '\v\s+%(\w+-\w+)+%(\.%(\w+-\w+|\w+))*'
 syn region pyretRecordAnn matchgroup=Keyword start='\v\{' end='\v\}' contained
  \ contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
 
+syn region pyretParenAnn matchgroup=Keyword start='\v\(' end='\v\)' contained
+ \ contains=@pyretAnn skipwhite
+
 syn match pyretAnnArrow '\v-\>' contained nextgroup=@pyretAnn skipwhite
 hi link pyretAnnArrow Keyword
 hi link pyretSimpleAnn Type
 hi link pyretDashAnn Type
 hi link pyretComplexAnn Type
 hi link pyretRecordAnn Type
+hi link pyretParenAnn Type
+
+" `type` expressions
+syn keyword pyretTypeDecl type nextgroup=@pyretAnn
+hi link pyretTypeDecl Keyword
+
+" fun defintions
+syn match pyretKeyword '\vfun|method' nextgroup=pyretFunName skipwhite
+syn match pyretFunName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained
+ \ nextgroup=pyretArgs skipwhite
+hi link pyretFunName Identifier
+syn match pyretArgName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained transparent
+ \ nextgroup=pyretColonColon skipwhite
+syn region pyretArgs matchgroup=Keyword start='\v\(' end='\v\)'
+ \ contained contains=pyretArgName
+hi link pyretArgs Constant
+
+" cases using |
+syn match pyretBar '\v\|' nextgroup=pyretFunName skipwhite
+hi link pyretBar PreProc
+
+" Data defintions
+syn keyword pyretKeyword data nextgroup=pyretSimpleAnn skipwhite
