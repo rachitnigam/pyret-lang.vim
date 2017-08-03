@@ -16,7 +16,6 @@ syn match delimeter '!'
 syn match delimeter '\.'
 syn match delimeter '='
 syn match delimeter ':='
-
 syn match delimeter ':'
 syn match delimiter '%'
 
@@ -71,18 +70,20 @@ syn match pyretTodo /\vTODO|FIXME|NOTE/ contained
 hi link pyretTodo Todo
 
 " Strings
-syntax region string start=/\v"/ skip=/\v\\./ end=/\v("|$)/
-syntax region string start=/\v'/ skip=/\v\\./ end=/\v('|$)/
-syntax region string start=/\v```/ skip=/\v\\./ end=/\v```/
+syn region pyretString start=/\v"/ skip=/\v\\./ end=/\v("|$)/
+syn region pyretString start=/\v'/ skip=/\v\\./ end=/\v('|$)/
+syn region pyretString start=/\v```/ skip=/\v\\./ end=/\v```/
+hi link pyretString String
 
 " Numbers
-syn match pyretExactNumber "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
-hi link pyretExactNumber Constant
-
+syn match pyretConstant "\v<(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?>"
 " Booleans
-syn keyword pyretBoolean true
-syn keyword pyretBoolean false
-hi link pyretBoolean Boolean
+syn keyword pyretConstant true
+syn keyword pyretConstant false
+" nothing
+syn keyword pyretConstant nothing
+
+hi link pyretConstant Constant
 
 " Template
 syntax match pyretTemplate '\v\.\.\.'
@@ -110,8 +111,11 @@ syn match pyretAnnDot '\.' contained nextgroup=pyretSimpleAnn
 hi link pyretAnnDot Keyword
 
 syn region pyretRecordAnn matchgroup=Keyword start='\v\{' end='\v\}' contained
- \ contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
+ \ contains=@pyretAnn,pyretSemicolon nextgroup=pyretAnnArrow skipwhite
 hi link pyretRecordAnn Type
+
+syn match pyretSemicolon ';' contained
+hi link pyretSemicolon Keyword
 
 syn region pyretParenAnn matchgroup=Keyword start='\v\(' end='\v\)' contained
  \ contains=@pyretAnn skipwhite
@@ -126,16 +130,23 @@ syn region pyretTypeDecl matchgroup=Keyword start='\v<type>' end='\v$'
 
 " fun defintions
 syn keyword pyretBlock fun method nextgroup=pyretFunName skipwhite
-syn keyword pyretBlock lam nextgroup=pyretArgs skipwhite
+syn keyword pyretBlock lam nextgroup=pyretArgs,pyretFunTypeParam skipwhite
 syn match pyretFunComma ',' contained
 hi link pyretFunComma Special
+
 syn match pyretFunName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained
- \ nextgroup=pyretArgs skipwhite
+ \ nextgroup=pyretArgs,pyretFunTypeParam skipwhite
 hi link pyretFunName Constant
+
+syn region pyretFunTypeParam matchgroup=Keyword start='\v\<' end='\v\>'
+ \ contained contains=@pyretAnn nextgroup=pyretArgs skipwhite
+hi link pyretFunTypeParam Type
+
 syn region pyretArgs matchgroup=Keyword start='\v\(' end='\v\)'
  \ contained contains=pyretArgName,pyretFunComma,pyretKeyword
  \ nextgroup=pyretAnnArrow skipwhite
 hi link pyretArgs Identifier
+
 syn match pyretArgName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained transparent
  \ nextgroup=pyretColonColon skipwhite
 
