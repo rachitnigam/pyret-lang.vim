@@ -58,6 +58,7 @@ syn match pyretOperator '<'
 syn match pyretOperator '>='
 syn match pyretOperator '<='
 syn match pyretOperator '<>'
+syn match pyretOperator '\^'
 hi link pyretOperator Label
 
 " Comments
@@ -120,7 +121,7 @@ syn match pyretAnnArrow '\v-\>' contained nextgroup=@pyretAnn skipwhite
 hi link pyretAnnArrow Keyword
 
 " `type` expressions
-syn region pyretTypeDecl matchgroup=Keyword start='\vtype' end='\v$'
+syn region pyretTypeDecl matchgroup=Keyword start='\v<type>' end='\v$'
  \ contains=@pyretAnn,pyretComment skipwhite keepend
 
 " fun defintions
