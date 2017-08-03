@@ -22,18 +22,27 @@ syn match delimiter '%'
 
 hi link delimeter PreProc
 
-" Keywords in pyret
-syn keyword pyretKeyword var end with: sharing: include import
-syn keyword pyretKeyword provide as try: except when
-syn keyword pyretKeyword for from check: where: doc: and or not else: if else
-syn keyword pyretKeyword is is== is=~ is<=> is-not is-not== is-not=~ is-not<=>
-syn keyword pyretKeyword deriving ref graph: m-graph: block: satisfies
-syn keyword pyretKeyword violates shadow type-let provide-types
-syn keyword pyretKeyword let rec letrec ask: table: extend using row: select
-syn keyword pyretKeyword extract order sieve by raises newtype
-hi link pyretKeyword Function
+" Keywords
+syn keyword pyretKeyword var from shadow ref
+hi link pyretKeyword Keyword
+
+" Imports and exports
+syn keyword pyretImport include import provide provide-types as
+hi link pyretImport PreProc
+
+" Block structures in pyret
+syn keyword pyretBlock end with: sharing: for
+syn keyword pyretBlock try: except when
+syn keyword pyretBlock check: where: doc: else: if else
+syn keyword pyretBlock deriving graph: m-graph: block: satisfies
+syn keyword pyretBlock violates type-let
+syn keyword pyretBlock let rec letrec ask: table: extend using row: select
+syn keyword pyretBlock extract order sieve by raises newtype
+hi link pyretBlock Function
 
 " Built-in functions
+syn keyword pyretBuiltin is is== is=~ is<=> is-not is-not== is-not=~ is-not<=>
+syn keyword pyretBuiltin and or not
 syn keyword pyretBuiltin torepr to-repr tostring to-string raise
 syn keyword pyretBuiltin is-boolean is-number is-string is-raw-array is-nothing
 syn keyword pyretBuiltin is-function is-object
@@ -115,8 +124,8 @@ syn region pyretTypeDecl matchgroup=Keyword start='\vtype' end='\v$'
  \ contains=@pyretAnn,pyretComment skipwhite keepend
 
 " fun defintions
-syn keyword pyretKeyword fun method nextgroup=pyretFunName skipwhite
-syn keyword pyretKeyword lam nextgroup=pyretArgs skipwhite
+syn keyword pyretBlock fun method nextgroup=pyretFunName skipwhite
+syn keyword pyretBlock lam nextgroup=pyretArgs skipwhite
 syn match pyretFunName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained
  \ nextgroup=pyretArgs skipwhite
 hi link pyretFunName Constant
@@ -133,9 +142,9 @@ syn match pyretCaseArrow '\v\=\>'
 hi link pyretCaseArrow Keyword
 
 " Data defintions
-syn keyword pyretKeyword data nextgroup=pyretSimpleAnn skipwhite
+syn keyword pyretBlock data nextgroup=pyretSimpleAnn skipwhite
 
 " cases keyword
-syn keyword pyretKeyword cases nextgroup=pyretCaseType skipwhite
+syn keyword pyretBlock cases nextgroup=pyretCaseType skipwhite
 syn region pyretCaseType matchgroup=Keyword start='\v\(' end='\v\)'
  \ contained contains=@pyretAnn skipwhite
