@@ -6,3 +6,5 @@
 --regex-pyret=/^[ \t]*data[ \t]+([a-zA-Z0-9_-]+)/\1/d,data/
 --regex-pyret=/^[ \t]*\|[ \t]*([a-zA-Z0-9_-]+)\([^)]*\)[ \t]*$/\1/d,data/
 --regex-pyret=/^[ \t]*type[ \t]+([a-zA-Z0-9_-]+)/\1/d,data/
+--regex-pyret=/^[ \t]*([a-zA-Z0-9_-]+)[ \t]*=/\1/v,value/
+--regex-pyret=/^[ \t]*([a-zA-Z0-9_-]+)[ \t]*::[ \t]*[a-zA-Z0-9_<>}{. -]+[ \t]*=/\1/v,value/
