@@ -127,11 +127,14 @@ syn region pyretTypeDecl matchgroup=Keyword start='\v<type>' end='\v$'
 " fun defintions
 syn keyword pyretBlock fun method nextgroup=pyretFunName skipwhite
 syn keyword pyretBlock lam nextgroup=pyretArgs skipwhite
+syn match pyretFunComma ',' contained
+hi link pyretFunComma Special
 syn match pyretFunName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained
  \ nextgroup=pyretArgs skipwhite
 hi link pyretFunName Constant
 syn region pyretArgs matchgroup=Keyword start='\v\(' end='\v\)'
- \ contained contains=pyretArgName nextgroup=pyretAnnArrow skipwhite
+ \ contained contains=pyretArgName,pyretFunComma,pyretKeyword
+ \ nextgroup=pyretAnnArrow skipwhite
 hi link pyretArgs Identifier
 syn match pyretArgName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*' contained transparent
  \ nextgroup=pyretColonColon skipwhite
