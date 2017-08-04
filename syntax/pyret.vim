@@ -17,13 +17,12 @@ syn match delimeter '\.'
 syn match delimeter '='
 syn match delimeter ':='
 syn match delimeter ':'
-syn match delimiter '%'
 
 hi link delimeter PreProc
 
 " Keywords
 syn keyword pyretKeyword var from shadow ref
-hi link pyretKeyword Keyword
+hi link pyretKeyword Special
 
 " Imports and exports
 syn keyword pyretImport include import provide provide-types as
@@ -66,7 +65,7 @@ syntax region pyretComment start=/#|/ skip=/\./ end=/|#/ contains=pyretTodo
 hi link pyretComment Comment
 
 " Todo
-syn match pyretTodo /\vTODO|FIXME|NOTE/ contained
+syn match pyretTodo /\v<(TODO|FIXME|NOTE)>/ contained
 hi link pyretTodo Todo
 
 " Strings
@@ -76,7 +75,7 @@ syn region pyretString start=/\v```/ skip=/\v\\./ end=/\v```/
 hi link pyretString String
 
 " Numbers
-syn match pyretConstant "\v<(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?>"
+syn match pyretConstant "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
 " Booleans
 syn keyword pyretConstant true
 syn keyword pyretConstant false
@@ -92,8 +91,12 @@ hi link pyretTemplate ERROR
 " Variable names in pyret. Need to be higher priority than numbers
 syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*'
  \ nextgroup=pyretColonColon skipwhite
-syn match pyretColonColon '::' nextgroup=@pyretAnn skipwhite contained
+syn match pyretColonColon '::' nextgroup=@pyretAnn skipwhite
 hi link pyretColonColon Keyword
+
+" Variables bound by `from`
+syn match pyretFromName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*\ze(\s+::\s+\S+)?\s+from'
+hi link pyretFromName Identifier
 
 " Type Annotations
 syn cluster pyretAnn
@@ -108,7 +111,7 @@ syn match pyretSimpleAnn '\v%((\w+-\w+)|\w+)' contained
 hi link pyretSimpleAnn Type
 
 syn match pyretRefineStart '\v\%' contained nextgroup=pyretRefineAnn
-hi link pyretRefineStart Special
+hi link pyretRefineStart Keyword
 
 syn region pyretRefineAnn matchgroup=Keyword start='\v\(' end='\v\)' contained
  \ contains=pyretName nextgroup=pyretAnnArrow skipwhite
