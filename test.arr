@@ -43,11 +43,13 @@ a :: foo-bar.List<Number>
 a :: A.Number
 a :: List<Number>
 a :: A.List<Option<Number>>
+a :: Number%(is-positive) -> String%(is-five)
+a :: List<Number>%(is-positive) -> List<String>%(is-five)
 a :: {Number; Boolean}
 a :: {{Number; Boolean}; {String; List<Any>}}
 a :: Foo -> Bar
 a :: List<Foo> -> List<Bar>
-a :: { Number; Boolean } -> { String; Boolean }
+a :: { Number; Boolean; FooBar } -> { String; Boolean }
 a :: (Foo -> Bar)
 
 # New `type` declaration

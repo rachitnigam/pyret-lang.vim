@@ -100,12 +100,18 @@ syn cluster pyretAnn
  \ contains=pyretSimpleAnn,pyretComplexAnn,pyretRecordAnn,pyretParenAnn,pyretAnnDot
 
 syn region pyretComplexAnn matchgroup=Keyword start='\v\<' end='\v\>'
- \ contained contains=@pyretAnn nextgroup=pyretAnnArrow skipwhite
+ \ contained contains=@pyretAnn nextgroup=pyretAnnArrow,pyretRefineStart skipwhite
 hi link pyretComplexAnn Type
 
 syn match pyretSimpleAnn '\v%((\w+-\w+)|\w+)' contained
- \ nextgroup=pyretComplexAnn,pyretAnnArrow,pyretAnnDot skipwhite
+ \ nextgroup=pyretComplexAnn,pyretAnnArrow,pyretAnnDot,pyretRefineStart skipwhite
 hi link pyretSimpleAnn Type
+
+syn match pyretRefineStart '\v\%' contained nextgroup=pyretRefineAnn
+hi link pyretRefineStart Special
+
+syn region pyretRefineAnn matchgroup=Keyword start='\v\(' end='\v\)' contained
+ \ contains=pyretName nextgroup=pyretAnnArrow skipwhite
 
 syn match pyretAnnDot '\.' contained nextgroup=pyretSimpleAnn
 hi link pyretAnnDot Keyword
