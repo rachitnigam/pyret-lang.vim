@@ -152,7 +152,7 @@ syn region pyretFunTypeParam matchgroup=Keyword start='\v\<' end='\v\>'
 hi link pyretFunTypeParam Type
 
 syn region pyretArgs matchgroup=Keyword start='\v\(' end='\v\)'
- \ contained contains=pyretArgName,pyretFunComma,pyretKeyword
+ \ contained contains=pyretArgName,pyretFunComma,pyretKeyword,pyretComment
  \ nextgroup=pyretAnnArrow skipwhite
 hi link pyretArgs Identifier
 
