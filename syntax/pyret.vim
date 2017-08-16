@@ -10,7 +10,6 @@ syn case match
 syn sync minlines=200 maxlines=1000
 
 set iskeyword+=-
-set iskeyword+=:
 
 syn match delimeter '!'
 syn match delimeter '\.'
@@ -29,12 +28,12 @@ syn keyword pyretImport include import provide provide-types as
 hi link pyretImport PreProc
 
 " Block structures in pyret
-syn keyword pyretBlock end with: sharing: for
-syn keyword pyretBlock try: except when
-syn keyword pyretBlock check: where: doc: else: if else
-syn keyword pyretBlock deriving graph: m-graph: block: satisfies
+syn keyword pyretBlock end for
+syn keyword pyretBlock except when
+syn keyword pyretBlock if else
+syn keyword pyretBlock deriving satisfies
 syn keyword pyretBlock violates type-let
-syn keyword pyretBlock let rec letrec ask: table: extend using row: select
+syn keyword pyretBlock let rec letrec extend using  select
 syn keyword pyretBlock extract order sieve by raises newtype
 hi link pyretBlock Function
 
@@ -93,6 +92,21 @@ syn match pyretName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*'
  \ nextgroup=pyretColonColon skipwhite
 syn match pyretColonColon '::' nextgroup=@pyretAnn skipwhite
 hi link pyretColonColon Keyword
+
+" Keywords ending with :. Need to be after variables.
+syn match pyretBlock 'with:'
+syn match pyretBlock 'sharing:'
+syn match pyretBlock 'try:'
+syn match pyretBlock 'check:'
+syn match pyretBlock 'where:'
+syn match pyretBlock 'doc:'
+syn match pyretBlock 'else:'
+syn match pyretBlock 'graph:'
+syn match pyretBlock 'block:'
+syn match pyretBlock 'ask:'
+syn match pyretBlock 'table:'
+syn match pyretBlock 'row:'
+syn match pyretBlock 'm-graph:'
 
 " Variables bound by `from`
 syn match pyretFromName '\v[_a-zA-Z]((\-+)?[_a-zA-Z0-9]+)*\ze(\s+::\s+\S+)?\s+from'
@@ -172,3 +186,4 @@ syn keyword pyretBlock data nextgroup=pyretSimpleAnn skipwhite
 syn keyword pyretBlock cases nextgroup=pyretCaseType skipwhite
 syn region pyretCaseType matchgroup=Keyword start='\v\(' end='\v\)'
  \ contained contains=@pyretAnn skipwhite
+
