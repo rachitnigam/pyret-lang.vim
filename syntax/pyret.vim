@@ -72,6 +72,8 @@ syn region pyretString start=/\v"/ skip=/\v\\./ end=/\v("|$)/
 syn region pyretString start=/\v'/ skip=/\v\\./ end=/\v('|$)/
 syn region pyretString start=/\v```/ skip=/\v\\./ end=/\v```/
 hi link pyretString String
+syn match pyretEscapedChar '\v\\.' containedin=pyretString
+hi link pyretEscapedChar Special
 
 " Numbers
 syn match pyretConstant "\v(\-|\+)?[0-9]+(\.[0-9]+)?(e[0-9]+)?"
