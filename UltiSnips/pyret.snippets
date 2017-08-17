@@ -11,19 +11,25 @@ end
 endsnippet
 
 snippet lam "lam ... end (lam)"
-lam (${2:arguments}): ${VISUAL}$0 end
+lam(${2:arguments}): ${VISUAL}$0 end
 endsnippet
 
 snippet ife "if ... else: ... end (ife)"
 if ${1:condition}:
-  ${VISUAL}$0
+  ${2:then_branch}
 else:
-  ${2:else_branch}
+  ${3:else_branch}
 end
 endsnippet
 
 snippet cases "cases (type) ... end (cases)"
 cases(${1:type}) ${2:v}:
   | ${3:case1}
+end
+endsnippet
+
+snippet for "for ... end (for)"
+for ${1:iterators}:
+  ${2:body}
 end
 endsnippet
