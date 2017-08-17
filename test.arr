@@ -10,8 +10,8 @@ _-_-_
 
 # Numbers
 1
--1
 +1
+-1
 123.456
 1e10
 1.08e10
@@ -23,6 +23,9 @@ _-_-_
 a multiline
 string
 ```
+
+"String with \n escaped char"
+"\"String inside string\""
 
 # Operators
 1 + 2
@@ -64,11 +67,19 @@ end
 fun fun-name block:
 end
 
+fun foo<a>(x :: a, b :: a):
+end
+
 method meth-name(a :: Number, b :: String)
 end
 
 fun add(x :: Number, y :: Number) -> Number:
 end
+
+fun foo(
+  x :: Number, # Param 1
+  y :: Number  # Param 2
+)
 
 lam(b :: Number, c :: Number) -> Number
 
@@ -82,4 +93,13 @@ end
 cases(A.Expr) exp:
   | s-id(_, id) => id.toname()
   | s-id-letrec(_, id, _) => id.toname()
+end
+
+# for construct
+for(acc from 0, e from [list: 1,2,3,4]):
+  acc + e
+end
+
+for(acc :: Number from 0, e :: Number from [list: 1,2,3,4]):
+  acc + e
 end
