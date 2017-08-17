@@ -72,7 +72,7 @@ syn region pyretString start=/\v"/ skip=/\v\\./ end=/\v("|$)/
 syn region pyretString start=/\v'/ skip=/\v\\./ end=/\v('|$)/
 syn region pyretString start=/\v```/ skip=/\v\\./ end=/\v```/
 hi link pyretString String
-syn match pyretEscapedChar '\v\\.' containedin=pyretString
+syn match pyretEscapedChar '\v\\.' containedin=pyretString contained
 hi link pyretEscapedChar Special
 
 " Numbers
