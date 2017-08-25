@@ -28,7 +28,7 @@ syn keyword pyretImport include import provide provide-types as
 hi link pyretImport PreProc
 
 " Block structures in pyret
-syn keyword pyretBlock end for
+syn keyword pyretBlock end for check examples
 syn keyword pyretBlock except when
 syn keyword pyretBlock if else
 syn keyword pyretBlock deriving satisfies
